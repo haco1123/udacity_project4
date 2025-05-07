@@ -1,0 +1,14 @@
+Kubernetes-Specific Test Plan
+A Kubernetes-specific test plan focuses on validating changes to the cluster while ensuring its stability, functionality and security. The plan involves testing the changes in a controlled environment, monitoring their impact, and verifying that the cluster operates as expected.
+
+How will you test the changes?
+A combination of functional and automated tests is used to test the changes.
+To avoid impacting the production environment, a staging environment is used.
+Using tools such as kubectl, Prometheus and Grafana, the entire cluster can be monitored and its status recorded.
+
+How will you ensure the changes don't negatively affect your cluster?
+
+
+To ensure that the changes do not negatively impact the cluster, all tests are performed in a non-productive environment.
+During these tests, data such as data traffic, CPU. and memory usage, and system errors are recorded and evaluated.
+It is also important to conduct a comprehensive security check after changes are made and to resolve any security issue that arise.

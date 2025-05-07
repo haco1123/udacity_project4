@@ -1,65 +1,10 @@
 Docker Threat Modeling
 Given Docker's system components and the STRIDE framework, identify five potential threats that may arise.
 
-1. Spoofing
-Threat: An attacker could spoof a container's identity by manipulating container IDs or credentials.
-Mitigation: Use strong authentication mechanisms and enforce role-based access control (RBAC) for container management.
-
-2. Tampering
-Threat: An attacker could tamper with container images by injecting malicious code into the image during the build or pull process.
-Mitigation: Use signed and verified images from trusted registries and implement image scanning tools to detect vulnerabilities.
-
-4. Information Disclosure
-Threat: Sensitive data, such as environment variables or secrets, could be exposed within containers.
-Mitigation: Use secret management tools (e.g., HashiCorp Vault) and avoid hardcoding sensitive information in container configurations.
-
-5. Denial of Service (DoS)
-Threat: An attacker could overwhelm the Docker host by running resource-intensive containers, leading to service unavailability.
-Mitigation: Implement resource limits (CPU, memory) for containers and monitor resource usage to detect anomalies.
-
-6. Elevation of Privilege
-Threat: An attacker could exploit a misconfigured container running with root privileges to gain control of the host system.
-Mitigation: Run containers as non-root users and use security tools like AppArmor or SELinux to enforce least privilege.
-
 
 Kubernetes Threat Modeling
 Given Kubernetes' system components and the STRIDE framework, identify five potential threats that may arise.
 
-1. Spoofing
-Threat: An attacker could spoof the identity of a Kubernetes service account or node to gain unauthorized access to cluster resources.
-Mitigation: Use strong authentication mechanisms like mutual TLS for Kubernetes components and enforce RBAC to limit access.
-
-2. Tampering
-Threat: An attacker could tamper with Kubernetes manifests or configurations to deploy malicious workloads or modify existing workloads.
-Mitigation: Use version-controlled configuration management tools and enforce admission controllers like OPA/Gatekeeper to validate configurations.
-
-4. Information Disclosure
-Threat: Sensitive data, such as secrets or configuration files, could be exposed through misconfigured Kubernetes resources or APIs.
-Mitigation: Use Kubernetes Secrets to store sensitive data securely, enable encryption at rest, and restrict access to the Kubernetes API.
-
-5. Denial of Service (DoS)
-Threat: An attacker could overwhelm the Kubernetes cluster by deploying resource-intensive workloads, leading to service unavailability.
-Mitigation: Implement resource quotas and limits for namespaces, enable pod-level resource constraints, and monitor cluster resource usage.
-
-6. Elevation of Privilege
-Threat: An attacker could exploit a misconfigured pod running with elevated privileges to gain control of the Kubernetes node or cluster.
-Mitigation: Avoid running pods with privileged mode, use PodSecurityPolicies (or Pod Security Standards), and enforce least privilege for workloads.
-
 
 Docker-bench Run Results and Analysis
 From the failed findings, select and document 3 findings from the Docker-bench results that you want to harden based on the 5 attack surface areas you identified in Step 1. At least 1 of the 3 hardened findings should be different from the ones mentioned in the exercise (i.e. 5.10, 5.14, and 5.22).
-
-2.13 Ensure centralized and remote logging is configured:
-- Tampering: Without centralized logging, attackers could tamper with local logs to hide their tracks.
-- Information Disclosure: Logs may contain sensitive information that could be exposed if not securely managed.
-- Elevation of Privilege: Lack of logging makes it harder to detect privilege escalation attempts.
-
-5.26 Ensure that the container is restricted from acquiring additional privileges:
-- Spoofing: Containers with elevated privileges could be used to spoof other containers or services, gaining unauthorized access to sensitive resources.
-- Elevation of Privilege: Prevents containers from gaining additional privileges that could be exploited by attackers.
-- Tampering: Reduces the risk of attackers modifying container behavior by escalating privileges.
-
-5.11 Ensure that the memory usage for containers is limited:
-- Denial of Service: Prevents a single container from consuming excessive resources and causing service outages.
-- Tampering: A container consuming excessive memory could disrupt other containers, potentially leading to tampering with their operations or data.
-- Elevation of Privilege: A container with unrestricted memory usage could exploit vulnerabilities to escalate privileges and compromise the host system.
