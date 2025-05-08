@@ -53,7 +53,12 @@ services:
     backup_config: null
   kube-api:
     image: ""
-    extra_args: {}
+    extra_args: {
+      kubelet-certificate-authority: '/etc/kubernetes/ssl/kube-ca.pem',
+      enable-admission-plugins: "PodSecurityPolicy,EventRateLimit",
+      admission-control-config-file: "/etc/kubernetes/admission-control-config.yaml",
+      encryption-provider-config: "/etc/kubernetes/encryption-config.yaml"
+    }
     extra_binds: []
     extra_env: []
     win_extra_args: {}
