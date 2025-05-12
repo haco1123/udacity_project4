@@ -1,0 +1,21 @@
+1. Incident commander name:
+Leon Günther
+
+2. Executive Summary of what happened:
+The payload.sh script created 3 new pods (cryptotonight, minergate, moneropool) as crypto miners at default namespace. 
+
+3. Summary of what was affected:
+05/12: 3 new crypto mining pods where established: minergate, moneropool and cryptotonight.
+An attacker was able to get control of the cluster and run these 3 containers on the cluster.
+
+4. Summmry of the impact:
+05/12: The CPU, Memory and Bandwith usage in the Kubernets Compute Resource Cluster Dashboard was increased after established the 3 new containers.
+
+5. Summary of the remediation steps:
+Run "kubectl --kubeconfig kube_config_cluster.yml delete pod <pod_name> --grace-period=0 --force" for all 3 pods created by the attacker.
+The Dashboards are showing normal values after removing the pods.
+
+6. Summary of lessons learned:
+We don't install unknown, unused or old packages pr images in our software or cluster. 
+Also we need to protect us to get loaded unexpacted images by an attacker.
+Both can be archived to use security software like docker-bench, kube-bench and grype. With Falco it is possible to monitore our cluster and create useful dashboards in Grafana.
